@@ -20,8 +20,10 @@ async function main() {
 
   // 需要接收mint的話，就要擁有那個mint的相對應token account
   // 在產生token account的時候有兩種方法可以實現
+  let alice = Keypair.generate(); // 創一個新的帳號，這個帳號是實際可以授權token account的人
+  console.log("alice:", alice.publicKey.toBase58());
 
-  // 1. 直接產生一個 並對他做 token init
+  // 1. 直接產生一個 並對他做 token init (這個方法可以一直產生新的token account指定給想要指定的人)
   let tokenAccount = Keypair.generate();
   let tx1 = new Transaction();
   tx1.add(
@@ -35,10 +37,10 @@ async function main() {
       programId: SPLToken.TOKEN_PROGRAM_ID,
     }),
     SPLToken.Token.createInitAccountInstruction(
-      SPLToken.TOKEN_PROGRAM_ID, // programId: PublicKey,
-      mintPubkey, // mint: PublicKey,
-      tokenAccount.publicKey, // account: PublicKey,
-      feePayer.publicKey // owner: PublicKey,
+      SPLToken.TOKEN_PROGRAM_ID, // program id, 這個會是固定都是帶這個數值 SPLToken.TOKEN_PROGRAM_ID
+      mintPubkey, // mint,
+      tokenAccount.publicKey, // 要init的token account
+      alice.publicKey // owner, 實際上擁有token account的人
     )
   );
   tx1.feePayer = feePayer.publicKey;
@@ -50,22 +52,28 @@ async function main() {
   console.log(`txHash1: ${tsHash1}`);
   console.log(`token-account: ${tokenAccount.publicKey.toBase58()}`);
 
-  // 2. 創建 associated token (同一個owner的同一個mint只會有一個associated token account)
+  // 2. 創建 associated token account
+  // 同一個owner的同一個mint只會有一個associated token account
+  // 也就是說 alice 在 USDC 用這個算法 每次算都會是同一個 account
+  // 這可以大幅度的降低管理account的問題 要用的時候再算就好了
+
+  // 以下是 associated token account的算法
   let assoTokenAccountPubkey = await SPLToken.Token.getAssociatedTokenAddress(
-    SPLToken.ASSOCIATED_TOKEN_PROGRAM_ID,
-    SPLToken.TOKEN_PROGRAM_ID,
-    mintPubkey,
-    feePayer.publicKey
+    SPLToken.ASSOCIATED_TOKEN_PROGRAM_ID, // 固定值 都會是帶這個program id
+    SPLToken.TOKEN_PROGRAM_ID, // // 固定值 都會是帶這個program id
+    mintPubkey, // mint
+    alice.publicKey // owner
   );
+
   let tx2 = new Transaction();
   tx2.add(
     SPLToken.Token.createAssociatedTokenAccountInstruction(
-      SPLToken.ASSOCIATED_TOKEN_PROGRAM_ID,
-      SPLToken.TOKEN_PROGRAM_ID,
-      mintPubkey,
-      assoTokenAccountPubkey,
-      feePayer.publicKey,
-      feePayer.publicKey
+      SPLToken.ASSOCIATED_TOKEN_PROGRAM_ID, // 固定值 都會是帶這個program id
+      SPLToken.TOKEN_PROGRAM_ID, // 固定值 都會是帶這個program id
+      mintPubkey, // mint 要跟剛剛算account的時候帶的mint一樣
+      assoTokenAccountPubkey, // 剛剛算出來的那個 assoTokenAccountPubkey
+      alice.publicKey, // owner, 要跟剛剛算account的時候帶的owner一樣
+      feePayer.publicKey // fee payer
     )
   );
   tx2.feePayer = feePayer.publicKey;
