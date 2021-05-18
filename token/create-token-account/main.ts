@@ -22,6 +22,7 @@ async function main() {
   // 在產生token account的時候有兩種方法可以實現
   let alice = Keypair.generate(); // 創一個新的帳號，這個帳號是實際可以授權token account的人
   console.log("alice:", alice.publicKey.toBase58());
+  console.log("alice:", alice.secretKey);
 
   // 1. 直接產生一個 並對他做 token init (這個方法可以一直產生新的token account指定給想要指定的人)
   let tokenAccount = Keypair.generate();
