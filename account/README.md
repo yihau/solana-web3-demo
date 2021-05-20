@@ -2,7 +2,7 @@
 
 產生solana的key pair
 
-## request-aridrop
+## request-airdrop
 
 與節點建立連線，並且要一些airdrop來測試之後所有範例。
 
