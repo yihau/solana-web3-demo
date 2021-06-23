@@ -2,7 +2,7 @@
 
 ## 開始
 
-首先如果想要開發solana，非常建議可以在本地端安裝solana的cli工具。他可以啟動local的節點以及包裝了許多方便的函式，在開發上可以變得更加快速。
+首先如果想要開發solana，非常建議在本地端安裝solana的cli工具。他可以啟動local的節點以及包裝了許多方便的函式，在開發上可以變得更加快速。
 
 可以參考[這裡](https://docs.solana.com/cli)的前幾篇，可以不用寫任何code就先體驗一下solana
 
@@ -13,7 +13,7 @@
 solana-test-validator
 ```
 
-來啟動一個測試節點加速開發流程
+來啟動一個測試節點加速開發流程 (目前windows還沒有支援使用)
 
 [官方的explorer](https://explorer.solana.com/)可以指定custom的網址
 
@@ -24,7 +24,9 @@ solana-test-validator
 
 ### 概述
 
-Solana的世界跟Eth不太一樣，在Eth上面大家都是把資料都塞到contract上。在solana的contract(官方稱呼為program，以下也都會用program來稱呼)只有邏輯的部分，而儲存資料的重責大任就交給了Account。換句話說，你如果要執行一個program的話，如果有資料變動，你就會把相對應的account也都傳進去。
+Solana跟Ethereum在設計概念上不太一樣。
+
+在Ethereum上面大家都是把資料都塞到contract上，account跟contract互動結束之後，contract會把相對應的結果存在自己身上。但在solana的contract(官方稱呼為program，以下也都會用program來稱呼)只有邏輯的部分，而儲存資料的地方是account。
 
 ### Account
 
