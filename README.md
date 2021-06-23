@@ -4,9 +4,18 @@
 
 ## Guide
 
-主要分類我用資料夾隔開了，可以依據不同的需求挑選自己有興趣的內容。
+1. Basic
 
-1. Prepare
-2. Account
-3. Token
+| 主題 | 狀態 |
+|----------------|---------------|
+| 帳戶相關操作 | :heavy_check_mark: |
+| SOL操作 | :heavy_check_mark: |
+| Token操作 | :heavy_check_mark: |
+
+2. Advaned
+
+| 主題 | 狀態 |
+|----------------|---------------|
+| durable nonce | :heavy_check_mark: |
+| stake相關操作 |  |
 
