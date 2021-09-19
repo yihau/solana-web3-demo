@@ -12,4 +12,5 @@
   * [創建代幣](../tour/token/create-mint/main.ts)
   * [創建token account](../tour/token/create-token-account/main.ts)
   * [增發代幣](../tour/token/mint-to/main.ts)
+  * [查詢代幣餘額](../tour/token/get-token-balance/main.ts)
   * [代幣轉帳](../tour/token/token-transfer/main.ts)
