@@ -7,6 +7,7 @@
   * [私鑰還原帳戶](../tour/basic/retrieve-keypair/main.ts)
   * [建立基本連線](../tour/basic/create-connection/main.ts)
   * [拿測試幣](../tour/basic/request-airdrop/main.ts)
+  * [SOL餘額查詢](../tour/basic/get-sol-balance/main.ts)
   * [SOL轉帳](../tour/basic/transfer/main.ts)
 * Token
   * [創建代幣](../tour/token/create-mint/main.ts)
