@@ -1,4 +1,4 @@
-import { CONNECTION, ALICE_TOKEN_ADDRESS_1 } from "../../../helper/const";
+import { CONNECTION, ALICE_TOKEN_ADDRESS_1 } from "../../helper/const";
 
 // 查詢代幣餘額
 

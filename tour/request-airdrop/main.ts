@@ -1,4 +1,4 @@
-import { CONNECTION, FEE_PAYER } from "../../../helper/const";
+import { CONNECTION, FEE_PAYER } from "../../helper/const";
 
 // 拿一些Solana的測試幣
 

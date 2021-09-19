@@ -1,4 +1,4 @@
-import { CONNECTION, ALICE } from "../../../helper/const";
+import { CONNECTION, ALICE } from "../../helper/const";
 
 // 查詢SOL餘額
 

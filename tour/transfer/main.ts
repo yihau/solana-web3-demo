@@ -1,5 +1,5 @@
 import { Keypair, Transaction, SystemProgram } from "@solana/web3.js";
-import { ALICE, CONNECTION, FEE_PAYER } from "../../../helper/const";
+import { ALICE, CONNECTION, FEE_PAYER } from "../../helper/const";
 
 // SOL的轉帳
 

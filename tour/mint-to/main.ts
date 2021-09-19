@@ -1,6 +1,6 @@
 import { Transaction } from "@solana/web3.js";
 
-import { CONNECTION, FEE_PAYER, TEST_MINT, ALICE_TOKEN_ADDRESS_1 } from "../../../helper/const";
+import { CONNECTION, FEE_PAYER, TEST_MINT, ALICE_TOKEN_ADDRESS_1 } from "../../helper/const";
 
 import * as SPLToken from "@solana/spl-token";
 

@@ -1,6 +1,6 @@
 import { Keypair, Transaction, SystemProgram } from "@solana/web3.js";
 
-import { ALICE, CONNECTION, FEE_PAYER, TEST_MINT } from "../../../helper/const";
+import { ALICE, CONNECTION, FEE_PAYER, TEST_MINT } from "../../helper/const";
 
 import * as SPLToken from "@solana/spl-token";
 
