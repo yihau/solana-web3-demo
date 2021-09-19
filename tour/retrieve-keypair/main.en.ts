@@ -1,9 +1,9 @@
 import { Keypair } from "@solana/web3.js";
 
-// 使用私鑰還原Solana帳戶
+// use private key to retrieve your keypair
 
 async function main() {
-  // 可以使用fromSecretKey的func來還原成私鑰物件
+  // use fromSecretKey to get a keypair object
   let myAccount = Keypair.fromSecretKey(
     Uint8Array.from([
       174, 47, 154, 16, 202, 193, 206, 113, 199, 190, 53, 133, 169, 175, 31, 56, 222, 53, 138, 189, 224, 216, 117, 173,
@@ -12,9 +12,10 @@ async function main() {
     ])
   );
 
-  // 如果你要還原phantom的private key
-  // 他應該會回你一個base58 encode過的string
-  // 你可以先做bs58 decode然後再把他傳進 fromSecretKey 內
+  // if you want to recover phantom's private key
+  // it will return you a base58 encoded private key
+  // you will need to do base58 decode to get the Uint8Array then
+  // use the step above
 
   console.log(`pubkey: ${myAccount.publicKey.toBase58()}`);
   console.log(`prikey: [${Array.from(myAccount.secretKey)}]`);
