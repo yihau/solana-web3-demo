@@ -20,7 +20,7 @@ there are some solana web3 example
 
 ### Rpc
 
-* [get all token account by owner](rpc/get-all-account-by-owner/main.ts)
+* [get all token account by owner](rpc/get-all-account-by-owner/main.en.ts)
 
 ### Advanced
 
