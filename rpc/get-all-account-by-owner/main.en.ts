@@ -3,12 +3,16 @@ import { PublicKey } from "@solana/web3.js";
 import { CONNECTION, ALICE, TEST_MINT } from "../../helper/const";
 import * as SPLToken from "@solana/spl-token";
 
-// 查詢owner擁有多少個token account
+// get token accounts by owner
 
 async function main() {
-  let response = await CONNECTION.getTokenAccountsByOwner(ALICE.publicKey, {
-    programId: TOKEN_PROGRAM_ID,
-  });
+  // 1. you can fetch all token account by an owner
+  let response = await CONNECTION.getTokenAccountsByOwner(
+    ALICE.publicKey,
+    {
+      programId: TOKEN_PROGRAM_ID,
+    },
+  );
   response.value.forEach((e) => {
     console.log(`pubkey: ${e.pubkey.toBase58()}`);
     const accountInfo = SPLToken.AccountLayout.decode(e.account.data);
@@ -18,10 +22,13 @@ async function main() {
 
   console.log("-------------------");
 
-  // 或是也能只抓某一個mint下的所有account
-  let response2 = await CONNECTION.getTokenAccountsByOwner(ALICE.publicKey, {
-    mint: new PublicKey("E4ZN2KmnVmpwLwjJNAwRjuQLeE5iFHLcAJ8LGB7FMaGQ"),
-  });
+  // 2. or just fetch specific mint for a owner
+  let response2 = await CONNECTION.getTokenAccountsByOwner(
+    ALICE.publicKey,
+    {
+      mint: new PublicKey("E4ZN2KmnVmpwLwjJNAwRjuQLeE5iFHLcAJ8LGB7FMaGQ"),
+    },
+  );
   response2.value.forEach((e) => {
     console.log(`pubkey: ${e.pubkey.toBase58()}`);
     const accountInfo = SPLToken.AccountLayout.decode(e.account.data);
