@@ -13,6 +13,7 @@
 * [SOL餘額查詢](tour/get-sol-balance/main.ts)
 * [SOL轉帳](tour/transfer/main.ts)
 * [創建代幣](tour/create-mint/main.ts)
+* [抓取代幣資訊](tour/get-mint/main.ts)
 * [創建代幣帳戶](tour/create-token-account/main.ts)
 * [增發代幣](tour/mint-to/main.ts)
 * [查詢代幣餘額](tour/get-token-balance/main.ts)

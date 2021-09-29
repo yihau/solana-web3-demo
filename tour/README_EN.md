@@ -9,6 +9,7 @@ recommend you to read by this order
 * [get sol balance](../tour/get-sol-balance/main.en.ts)
 * [sol transfer](../tour/transfer/main.en.ts)
 * [create mint](../tour/create-mint/main.en.ts)
+* [get mint info](../tour/get-mint/main.en.ts)
 * [create token naccount](../tour/create-token-account/main.en.ts)
 * [mint token](../tour/mint-to/main.en.ts)
 * [get token balance](../tour/get-token-balance/main.en.ts)
