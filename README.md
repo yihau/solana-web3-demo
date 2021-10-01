@@ -23,12 +23,12 @@
 
 * [代幣](advanced/token/README.md)
   * [關閉帳戶](advanced/token/close-account/main.ts)
+  * [查詢使用者的代幣帳戶](advanced/token/get-all-token-account-by-owner/main.ts)
 * [Durable Nonce](advanced/durable-nonce/README.md)
 * [Send Tx](advanced/send-tx/main.ts)
 
 ### Rpc
 
-* [查詢所有token account](rpc/get-all-account-by-owner/main.ts)
 
 ## Start
 
