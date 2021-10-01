@@ -19,14 +19,16 @@ there are some solana web3 example
 * [get token balance](tour/get-token-balance/main.en.ts)
 * [token transfer](tour/token-transfer/main.en.ts)
 
+### Advanced
+
+* [Token](advanced/token/README.en.md)
+  * [Close account](advanced/token/close-account/main.en.ts)
+* [Durable Nonce](advanced/durable-nonce/README.md)
+* [Send Tx](advanced/send-tx/main.ts)
+
 ### Rpc
 
 * [get all token account by owner](rpc/get-all-account-by-owner/main.en.ts)
-
-### Advanced
-
-* [Durable Nonce](advanced/durable-nonce/README.md)
-* [Send Tx](advanced/send-tx/main.ts)
 
 ## Start
 
