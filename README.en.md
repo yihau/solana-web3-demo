@@ -26,6 +26,7 @@ there are some solana web3 example
   * [Get all token accounts by owner](advanced/token/get-all-token-account-by-owner/main.en.ts)
 * [Durable Nonce](advanced/durable-nonce/README.md)
 * [Send Tx](advanced/send-tx/main.ts)
+* [interact with program](advanced/interact-with-program)
 
 ### Rpc
 
