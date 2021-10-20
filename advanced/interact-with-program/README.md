@@ -16,3 +16,5 @@
 
 - echo
 - seclector
+- read / write state (comming soon)
+- pda (comming soon)
