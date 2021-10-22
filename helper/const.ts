@@ -1,5 +1,6 @@
 import { Keypair, Connection, PublicKey } from "@solana/web3.js";
 
+// 5YNmS1R9nNSCDzb5a7mMJ1dwK9uHeAAF4CmPEwKgVWr8
 export const FEE_PAYER = Keypair.fromSecretKey(
   Uint8Array.from([
     206, 54, 90, 62, 42, 169, 79, 30, 10, 214, 71, 58, 161, 79, 210, 133, 123, 207, 196, 142, 168, 155, 129, 108, 35,
@@ -8,6 +9,7 @@ export const FEE_PAYER = Keypair.fromSecretKey(
   ])
 );
 
+// 2hieMSXcsk3F3bZE8iDe7WGREZesRDnDjHtdPVjya4NA
 export const ALICE = Keypair.fromSecretKey(
   Uint8Array.from([
     16, 169, 21, 27, 237, 134, 45, 100, 113, 192, 66, 107, 174, 36, 175, 110, 195, 29, 133, 60, 134, 224, 92, 212, 74,
@@ -16,8 +18,8 @@ export const ALICE = Keypair.fromSecretKey(
   ])
 );
 
-export const API_ENDPOINT = "http://api.devnet.solana.com";
-// export const API_ENDPOINT = "http://localhost:8899";
+// export const API_ENDPOINT = "http://api.devnet.solana.com";
+export const API_ENDPOINT = "http://localhost:8899";
 
 export const CONNECTION = new Connection(API_ENDPOINT);
 
