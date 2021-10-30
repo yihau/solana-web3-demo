@@ -1,6 +1,7 @@
-# solana-web3-demo
-
-一些solana web3的操作範例
+<h1 align="center">Solana Web3 Demo</h1>
+<div align="center">
+	<a href="https://github.com/yihau/solana-web3-demo/blob/main/README.en.md">english</a>
+</div>
 
 ## Guide
 
