@@ -8,7 +8,7 @@ async function main() {
     Token.createSetAuthorityInstruction(
       TOKEN_PROGRAM_ID, // fixed
       TEST_MINT,
-      null, // close it mint account, or you can pass new pubkey to it
+      null, // new auth, if you want to turn off the auth, just pass null
       "MintTokens", // authority type, there are 4 types => 'MintTokens' | 'FreezeAccount' | 'AccountOwner' | 'CloseAccount'
       FEE_PAYER.publicKey, // mint ori auth
       []
