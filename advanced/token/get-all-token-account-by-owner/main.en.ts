@@ -1,17 +1,18 @@
 import { TOKEN_PROGRAM_ID } from "@solana/spl-token";
-import { PublicKey } from "@solana/web3.js";
-import { CONNECTION, ALICE, TEST_MINT } from "../../helper/const";
+import { Connection, PublicKey } from "@solana/web3.js";
 import * as SPLToken from "@solana/spl-token";
 
 // get token accounts by owner
 
+const connection = new Connection("https://api.devnet.solana.com");
+
 async function main() {
   // 1. you can fetch all token account by an owner
-  let response = await CONNECTION.getTokenAccountsByOwner(
-    ALICE.publicKey,
+  let response = await connection.getTokenAccountsByOwner(
+    new PublicKey("27kVX7JpPZ1bsrSckbR76mV6GeRqtrjoddubfg2zBpHZ"), // owner here
     {
       programId: TOKEN_PROGRAM_ID,
-    },
+    }
   );
   response.value.forEach((e) => {
     console.log(`pubkey: ${e.pubkey.toBase58()}`);
@@ -23,11 +24,11 @@ async function main() {
   console.log("-------------------");
 
   // 2. or just fetch specific mint for a owner
-  let response2 = await CONNECTION.getTokenAccountsByOwner(
-    ALICE.publicKey,
+  let response2 = await connection.getTokenAccountsByOwner(
+    new PublicKey("27kVX7JpPZ1bsrSckbR76mV6GeRqtrjoddubfg2zBpHZ"), // owner here
     {
       mint: new PublicKey("E4ZN2KmnVmpwLwjJNAwRjuQLeE5iFHLcAJ8LGB7FMaGQ"),
-    },
+    }
   );
   response2.value.forEach((e) => {
     console.log(`pubkey: ${e.pubkey.toBase58()}`);
