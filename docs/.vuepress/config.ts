@@ -3,7 +3,7 @@ import type { DefaultThemeOptions } from "vuepress";
 import * as path from "path";
 
 export default defineUserConfig<DefaultThemeOptions>({
-  base: "/solana-web-demo/",
+  base: "/solana-web3-demo/",
   lang: "en-US",
   title: "Solana Web3 Example",
   themeConfig: {
