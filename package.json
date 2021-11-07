@@ -10,11 +10,12 @@
     "@metaplex/js": "^3.1.0",
     "@solana/spl-token": "^0.1.8",
     "@solana/web3.js": "^1.28.0",
-    "bs58": "^4.0.1"
+    "bs58": "^4.0.1",
+    "vuepress": "^2.0.0-beta.27",
+    "@vuepress/plugin-google-analytics": "^2.0.0-beta.27"
   },
   "devDependencies": {
     "@types/bs58": "^4.0.1",
-    "@types/node": "^16.11.6",
-    "vuepress": "^2.0.0-beta.27"
+    "@types/node": "^16.11.6"
   }
 }

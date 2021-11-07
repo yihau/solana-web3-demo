@@ -10,7 +10,7 @@ export default defineUserConfig<DefaultThemeOptions>({
     navbar: [{ text: "GitHub", link: "https://github.com/yihau/solana-web3-demo" }],
     locales: {
       "/": {
-        selectLanguageName: 'English',
+        selectLanguageName: "English",
         sidebar: [
           {
             text: "Getting Started",
@@ -59,7 +59,7 @@ export default defineUserConfig<DefaultThemeOptions>({
         ],
       },
       "/zh/": {
-        selectLanguageName: '中文',
+        selectLanguageName: "中文",
         sidebar: [
           {
             text: "開始",
@@ -136,4 +136,13 @@ export default defineUserConfig<DefaultThemeOptions>({
       handleImportPath: (str) => str.replace(/^@/, path.resolve(__dirname, "../../")),
     },
   },
+
+  plugins: [
+    [
+      "@vuepress/plugin-google-analytics",
+      {
+        id: "G-QBVBH32M0L",
+      },
+    ],
+  ],
 });
