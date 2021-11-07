@@ -10,6 +10,7 @@ export default defineUserConfig<DefaultThemeOptions>({
     navbar: [{ text: "GitHub", link: "https://github.com/yihau/solana-web3-demo" }],
     locales: {
       "/": {
+        selectLanguageName: 'English',
         sidebar: [
           {
             text: "Getting Started",
@@ -58,6 +59,7 @@ export default defineUserConfig<DefaultThemeOptions>({
         ],
       },
       "/zh/": {
+        selectLanguageName: '中文',
         sidebar: [
           {
             text: "開始",
@@ -120,11 +122,11 @@ export default defineUserConfig<DefaultThemeOptions>({
     // The key is the path for the locale to be nested under.
     // As a special case, the default locale can use '/' as its path.
     "/": {
-      lang: "en",
+      lang: "en-US",
       title: "Solana Web3 Example",
     },
     "/zh/": {
-      lang: "中文",
+      lang: "zh-TW",
       title: "Solana Web3 Example",
     },
   },
