@@ -18,7 +18,7 @@ export const ALICE = Keypair.fromSecretKey(
   ])
 );
 
-// export const API_ENDPOINT = "http://api.devnet.solana.com";
+// export const API_ENDPOINT = "https://api.devnet.solana.com";
 export const API_ENDPOINT = "http://localhost:8899";
 
 export const CONNECTION = new Connection(API_ENDPOINT);
