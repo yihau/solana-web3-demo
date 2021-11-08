@@ -1,3 +1,3 @@
 # Use Nonce
 
-@[code](@/advanced/durable-nonce/use-nonce/main.ts)
+@[code](@/advanced/durable-nonce/use-nonce/main.en.ts)
