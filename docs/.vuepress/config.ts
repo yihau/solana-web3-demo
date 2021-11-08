@@ -54,6 +54,15 @@ export default defineUserConfig<DefaultThemeOptions>({
                 text: "Metaplex (NFT)",
                 children: [{ text: "Token Metadata", link: "/advanced/metaplex/get-tokenmeta" }],
               },
+              {
+                text: "Durable Nonce",
+                link: "/advanced/durable-nonce/README.md",
+                children: [
+                  { text: "Create Nonce Account", link: "/advanced/durable-nonce/create-nonce-account" },
+                  { text: "Get Nonce Account", link: "/advanced/durable-nonce/query-nonce" },
+                  { text: "Use Nonce", link: "/advanced/durable-nonce/use-nonce" },
+                ],
+              },
             ],
           },
         ],
@@ -105,6 +114,7 @@ export default defineUserConfig<DefaultThemeOptions>({
               },
               {
                 text: "Durable Nonce",
+                link: "/zh/advanced/durable-nonce/README.md",
                 children: [
                   { text: "創建Nonce帳戶", link: "/zh/advanced/durable-nonce/create-nonce-account" },
                   { text: "抓取Nonce", link: "/zh/advanced/durable-nonce/query-nonce" },
