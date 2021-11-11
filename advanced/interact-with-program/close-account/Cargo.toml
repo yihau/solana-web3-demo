@@ -1,0 +1,11 @@
+[package]
+authors = ["yihau.chen <a122092487@gmail.com>"]
+edition = "2018"
+name = "close-account"
+version = "0.1.0"
+
+[dependencies]
+solana-program = "1.8.2"
+
+[lib]
+crate-type = ["cdylib", "lib"]
