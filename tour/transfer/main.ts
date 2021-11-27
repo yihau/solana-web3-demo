@@ -1,35 +1,29 @@
-import { Keypair, Transaction, SystemProgram } from "@solana/web3.js";
-import { ALICE, CONNECTION, FEE_PAYER } from "../../helper/const";
+import { Connection, Keypair, Transaction, SystemProgram, PublicKey } from "@solana/web3.js";
+import * as bs58 from "bs58";
 
-// SOL的轉帳
+// connection
+const connection = new Connection("https://api.devnet.solana.com");
 
-async function main() {
-  // 建立一個測試的收幣的地址
-  let to = Keypair.generate();
-  console.log(`to: ${to.publicKey.toBase58()}`);
+// 5YNmS1R9nNSCDzb5a7mMJ1dwK9uHeAAF4CmPEwKgVWr8
+const feePayer = Keypair.fromSecretKey(
+  bs58.decode("588FU4PktJWfGfxtzpAAXywSNt74AvtroVzGfKkVN1LwRuvHwKGr851uH8czM5qm4iqLbs1kKoMKtMJG4ATR7Ld2")
+);
 
-  // 建立一個空的tx物件
-  let tx = new Transaction();
-  // 加上tranfer的instruction
-  tx.add(
+// G2FAbFQPFa5qKXCetoFZQEvF9BVvCKbvUZvodpVidnoY
+const alice = Keypair.fromSecretKey(
+  bs58.decode("4NMwxzmYj2uvHuq8xoqhY8RXg63KSVJM1DXkpbmkUY7YQWuoyQgFnnzn6yo3CMnqZasnNPNuAT2TLwQsCaKkUddp")
+);
+
+(async () => {
+  let tx = new Transaction().add(
     SystemProgram.transfer({
-      fromPubkey: ALICE.publicKey,
-      toPubkey: to.publicKey,
-      lamports: 1e8, // 0.1 SOL
+      fromPubkey: alice.publicKey,
+      toPubkey: new PublicKey("4MWwxzWsWmHrsbfPFwE6LDq471nqNeNMsD6DS7y8nruw"),
+      lamports: 1e9, // 1 SOL
     })
   );
-  // 指定fee payer
-  tx.feePayer = FEE_PAYER.publicKey;
+  tx.feePayer = feePayer.publicKey;
 
-  // 發送交易 (後面的array是帶入要簽名的帳戶，我們建立的這個交易需要from跟feePayer都簽名，如果from跟feePayer都是同一個人，那就只需要帶入feePayer即可)
-  let txhash = await CONNECTION.sendTransaction(tx, [ALICE, FEE_PAYER]);
+  let txhash = await connection.sendTransaction(tx, [feePayer, alice]);
   console.log(`txhash: ${txhash}`);
-}
-
-main().then(
-  () => process.exit(),
-  (err) => {
-    console.error(err);
-    process.exit(-1);
-  }
-);
+})();
