@@ -1,3 +1,3 @@
 # Get Sol Balance
 
-@[code](@/tour/get-sol-balance/main.en.ts)
+@[code ts{13,14}](@/tour/get-sol-balance/main.ts)
