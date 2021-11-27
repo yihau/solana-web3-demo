@@ -77,7 +77,7 @@ export default defineUserConfig<DefaultThemeOptions>({
           {
             text: "入門",
             children: [
-              { text: "創建帳戶", link: "/zh/tour/create-keypair" },
+              { text: "創建錢包", link: "/zh/tour/create-keypair" },
               { text: "建立連線", link: "/zh/tour/create-connection" },
               { text: "拿測試幣", link: "/zh/tour/request-airdrop" },
               { text: "抓取SOL餘額", link: "/zh/tour/get-sol-balance" },
