@@ -20,7 +20,6 @@ export default defineUserConfig<DefaultThemeOptions>({
             text: "Tour",
             children: [
               { text: "Create Keypair (Account)", link: "/tour/create-keypair" },
-              { text: "Create Connection", link: "/tour/create-connection" },
               { text: "Request Airdrop", link: "/tour/request-airdrop" },
               { text: "Get Balance (SOL)", link: "/tour/get-sol-balance" },
               { text: "Transfer (SOL)", link: "/tour/transfer" },
@@ -78,7 +77,6 @@ export default defineUserConfig<DefaultThemeOptions>({
             text: "入門",
             children: [
               { text: "創建錢包", link: "/zh/tour/create-keypair" },
-              { text: "建立連線", link: "/zh/tour/create-connection" },
               { text: "拿測試幣", link: "/zh/tour/request-airdrop" },
               { text: "抓取SOL餘額", link: "/zh/tour/get-sol-balance" },
               { text: "SOL轉帳", link: "/zh/tour/transfer" },

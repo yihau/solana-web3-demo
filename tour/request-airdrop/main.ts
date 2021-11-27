@@ -1,19 +1,16 @@
-import { CONNECTION, FEE_PAYER } from "../../helper/const";
+import { Connection, Keypair } from "@solana/web3.js";
+import * as bs58 from "bs58";
 
-// 拿一些Solana的測試幣
+// connection
+const connection = new Connection("https://api.devnet.solana.com");
 
-async function main() {
-  // 拿測試幣
-  let txhash = await CONNECTION.requestAirdrop(FEE_PAYER.publicKey, 1e9);
-
-  // 可以在 https://explorer.solana.com 查詢這筆交易，記得要選擇到你測試的網路
-  console.log(`txhash: ${txhash}`);
-}
-
-main().then(
-  () => process.exit(),
-  (err) => {
-    console.error(err);
-    process.exit(-1);
-  }
+// 5YNmS1R9nNSCDzb5a7mMJ1dwK9uHeAAF4CmPEwKgVWr8
+const feePayer = Keypair.fromSecretKey(
+  bs58.decode("588FU4PktJWfGfxtzpAAXywSNt74AvtroVzGfKkVN1LwRuvHwKGr851uH8czM5qm4iqLbs1kKoMKtMJG4ATR7Ld2")
 );
+
+(async () => {
+  // 1e9 lamports = 10^9 lamports = 1 SOL
+  let txhash = await connection.requestAirdrop(feePayer.publicKey, 1e9);
+  console.log(`txhash: ${txhash}`);
+})();
