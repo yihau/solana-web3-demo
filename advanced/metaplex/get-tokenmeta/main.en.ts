@@ -1,5 +1,5 @@
-import { programs } from "@metaplex/js";
 import { Connection, PublicKey } from "@solana/web3.js";
+import { Metadata } from "@metaplex-foundation/mpl-token-metadata";
 
 // NFT is a mint. just like SRM, USDC ..., the only different is that NFT's supply is 1
 //
@@ -13,18 +13,10 @@ import { Connection, PublicKey } from "@solana/web3.js";
 
 const connection = new Connection("https://api.mainnet-beta.solana.com");
 
-async function main() {
+(async () => {
   let mintPubkey = new PublicKey("9MwGzSyuQRqmBHqmYwE6wbP3vzRBj4WWiYxWns3rkR7A");
-  let tokenmetaPubkey = await programs.metadata.Metadata.getPDA(mintPubkey);
+  let tokenmetaPubkey = await Metadata.getPDA(mintPubkey);
 
-  const tokenmeta = await programs.metadata.Metadata.load(connection, tokenmetaPubkey);
+  const tokenmeta = await Metadata.load(connection, tokenmetaPubkey);
   console.log(tokenmeta);
-}
-
-main().then(
-  () => process.exit(),
-  (err) => {
-    console.error(err);
-    process.exit(-1);
-  }
-);
+})();
