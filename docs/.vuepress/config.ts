@@ -51,7 +51,10 @@ export default defineUserConfig<DefaultThemeOptions>({
               },
               {
                 text: "Metaplex (NFT)",
-                children: [{ text: "Token Metadata", link: "/advanced/metaplex/get-tokenmeta" }],
+                children: [
+                  { text: "Token Metadata", link: "/advanced/metaplex/get-tokenmeta" },
+                  { text: "Get NFT", link: "/advanced/metaplex/get-nft" },
+                ],
               },
               {
                 text: "Durable Nonce",
@@ -108,7 +111,10 @@ export default defineUserConfig<DefaultThemeOptions>({
               },
               {
                 text: "Metaplex (NFT)",
-                children: [{ text: "Token Metadata", link: "/zh/advanced/metaplex/get-tokenmeta" }],
+                children: [
+                  { text: "Token Metadata", link: "/zh/advanced/metaplex/get-tokenmeta" },
+                  { text: "Get NFT", link: "/advanced/metaplex/get-nft" },
+                ],
               },
               {
                 text: "Durable Nonce",
