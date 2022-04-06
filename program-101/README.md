@@ -14,6 +14,10 @@ pack all accounts we need into our program
 
 make our program parse data and do more things
 
+### serialize / deserialize
+
+store your state in your account
+
 ### Invoke
 
 call another program in your program by invoke
