@@ -1,4 +1,4 @@
-import { Connection, Keypair, Transaction, SystemProgram, PublicKey } from "@solana/web3.js";
+import { Connection, Keypair, Transaction, SystemProgram, PublicKey, LAMPORTS_PER_SOL } from "@solana/web3.js";
 import * as bs58 from "bs58";
 
 // connection
@@ -19,7 +19,7 @@ const alice = Keypair.fromSecretKey(
     SystemProgram.transfer({
       fromPubkey: alice.publicKey,
       toPubkey: new PublicKey("4MWwxzWsWmHrsbfPFwE6LDq471nqNeNMsD6DS7y8nruw"),
-      lamports: 1e9, // 1 SOL
+      lamports: 1 * LAMPORTS_PER_SOL,
     })
   );
   tx.feePayer = feePayer.publicKey;

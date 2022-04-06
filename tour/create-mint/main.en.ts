@@ -46,7 +46,7 @@ const alice = Keypair.fromSecretKey(
     createInitializeMintInstruction(
       mint.publicKey, // mint pubkey
       0, // decimals
-      feePayer.publicKey, // mint authority (an auth to mint token)
+      alice.publicKey, // mint authority (an auth to mint token)
       null // freeze authority (we use null first, the auth can let you freeze user's token account)
     )
   );

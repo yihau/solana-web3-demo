@@ -1,8 +1,30 @@
-import { Keypair, Transaction, SystemProgram } from "@solana/web3.js";
+import { Keypair, Transaction, SystemProgram, Connection, PublicKey } from "@solana/web3.js";
 
-import { ALICE, CONNECTION, FEE_PAYER, TEST_MINT } from "../../helper/const";
+import {
+  ACCOUNT_SIZE,
+  createAssociatedTokenAccountInstruction,
+  createInitializeAccountInstruction,
+  getAssociatedTokenAddress,
+  getMinimumBalanceForRentExemptAccount,
+  TOKEN_PROGRAM_ID,
+} from "@solana/spl-token";
 
-import * as SPLToken from "@solana/spl-token";
+import * as bs58 from "bs58";
+
+// connection
+const connection = new Connection("https://api.devnet.solana.com");
+
+// 5YNmS1R9nNSCDzb5a7mMJ1dwK9uHeAAF4CmPEwKgVWr8
+const feePayer = Keypair.fromSecretKey(
+  bs58.decode("588FU4PktJWfGfxtzpAAXywSNt74AvtroVzGfKkVN1LwRuvHwKGr851uH8czM5qm4iqLbs1kKoMKtMJG4ATR7Ld2")
+);
+
+// G2FAbFQPFa5qKXCetoFZQEvF9BVvCKbvUZvodpVidnoY
+const alice = Keypair.fromSecretKey(
+  bs58.decode("4NMwxzmYj2uvHuq8xoqhY8RXg63KSVJM1DXkpbmkUY7YQWuoyQgFnnzn6yo3CMnqZasnNPNuAT2TLwQsCaKkUddp")
+);
+
+const mintPubkey = new PublicKey("AjMpnWhqrbFPJTQps4wEPNnGuQPMKUcfqHUqAeEf1WM4");
 
 // create token account
 
@@ -24,69 +46,50 @@ import * as SPLToken from "@solana/spl-token";
 // and anytime you get the same result, if you pass the same SOL address and mint address
 // it make managing token account easy, because I can know all of your token address just by your SOL address
 
-async function main() {
+(async () => {
   // 1. Random
-  let randomTokenAccount = Keypair.generate();
-  console.log(`ramdom token address: ${randomTokenAccount.publicKey.toBase58()}`);
+  {
+    let tokenAccount = Keypair.generate();
+    console.log(`ramdom token address: ${tokenAccount.publicKey.toBase58()}`);
 
-  let randomTokenAccountTx = new Transaction();
-  randomTokenAccountTx.add(
-    // create account
-    SystemProgram.createAccount({
-      fromPubkey: FEE_PAYER.publicKey,
-      newAccountPubkey: randomTokenAccount.publicKey,
-      space: SPLToken.AccountLayout.span,
-      lamports: await SPLToken.Token.getMinBalanceRentForExemptAccount(CONNECTION),
-      programId: SPLToken.TOKEN_PROGRAM_ID,
-    }),
-    // init token account
-    SPLToken.Token.createInitAccountInstruction(
-      SPLToken.TOKEN_PROGRAM_ID, // program id, always token program id
-      TEST_MINT, // mint
-      randomTokenAccount.publicKey, // token account public key
-      ALICE.publicKey // token account authority
-    )
-  );
-  randomTokenAccountTx.feePayer = FEE_PAYER.publicKey;
+    let tx = new Transaction();
+    tx.add(
+      // create account
+      SystemProgram.createAccount({
+        fromPubkey: feePayer.publicKey,
+        newAccountPubkey: tokenAccount.publicKey,
+        space: ACCOUNT_SIZE,
+        lamports: await getMinimumBalanceForRentExemptAccount(connection),
+        programId: TOKEN_PROGRAM_ID,
+      }),
+      // init token account
+      createInitializeAccountInstruction(tokenAccount.publicKey, mintPubkey, alice.publicKey)
+    );
 
-  console.log(
-    `random token account txhash: ${await CONNECTION.sendTransaction(randomTokenAccountTx, [
-      randomTokenAccount,
-      FEE_PAYER,
-    ])}`
-  );
+    console.log(
+      `create random token account txhash: ${await connection.sendTransaction(tx, [feePayer, tokenAccount])}`
+    );
+  }
 
   // 2. ATA
+  {
+    let ata = await getAssociatedTokenAddress(
+      mintPubkey, // mint
+      alice.publicKey, // owner
+      false // allow owner off curve
+    );
+    console.log(`ata: ${ata.toBase58()}`);
 
-  // you always get the same address if you pass the same mint and token account owner
-  let ata = await SPLToken.Token.getAssociatedTokenAddress(
-    SPLToken.ASSOCIATED_TOKEN_PROGRAM_ID, // always associated token program id
-    SPLToken.TOKEN_PROGRAM_ID, // always token program id
-    TEST_MINT, // mint
-    ALICE.publicKey // token account authority
-  );
-  console.log(`ata: ${ata.toBase58()}`);
+    let tx = new Transaction();
+    tx.add(
+      createAssociatedTokenAccountInstruction(
+        feePayer.publicKey, // payer
+        ata, // ata
+        alice.publicKey, // owner
+        mintPubkey // mint
+      )
+    );
 
-  let ataTx = new Transaction();
-  ataTx.add(
-    SPLToken.Token.createAssociatedTokenAccountInstruction(
-      SPLToken.ASSOCIATED_TOKEN_PROGRAM_ID, // always associated token program id
-      SPLToken.TOKEN_PROGRAM_ID, // always token program id
-      TEST_MINT, // mint (which we used to calculate ata)
-      ata, // the ata we calcualted early
-      ALICE.publicKey, // token account owner (which we used to calculate ata)
-      FEE_PAYER.publicKey // payer, fund account, like SystemProgram.createAccount's from
-    )
-  );
-  ataTx.feePayer = FEE_PAYER.publicKey;
-
-  console.log(`ata txhash: ${await CONNECTION.sendTransaction(ataTx, [FEE_PAYER])}`);
-}
-
-main().then(
-  () => process.exit(),
-  (err) => {
-    console.error(err);
-    process.exit(-1);
+    console.log(`create ata txhash: ${await connection.sendTransaction(tx, [feePayer])}`);
   }
-);
+})();

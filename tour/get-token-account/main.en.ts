@@ -1,25 +1,16 @@
-import { CONNECTION, TEST_MINT } from "../../helper/const";
+import { Connection, PublicKey } from "@solana/web3.js";
+import { getAccount } from "@solana/spl-token";
 
-import * as SPLToken from "@solana/spl-token";
-import { PublicKey } from "@solana/web3.js";
+// connection
+const connection = new Connection("https://api.devnet.solana.com");
 
-// fetch token account info
+const tokenAccount1Pubkey = new PublicKey("37sAdhEFiYxKnQAm7CPd5GLK1ZxWovqn3p87kKjfD44c");
 
-// you can get token informations by a token address
+const tokenAccount2Pubkey = new PublicKey("CFEPU5Jd6DNj8gpjPLJ1d9i4xSJDGYNV7n6qw53zE3n1");
 
-async function main() {
-  // we can use the function which lives in @solana/spl-token to fetch token account info
-  // the parameters are, (connection, mint address, token program id, fee payer)
-  // here we just want to fetch info, so we don't need to pass all infos
-  let tokenAccountPubkey = new PublicKey("GfgZN2Nim5fbFhVJJpasAApsVzVrYzMmwKzNwjR3i58X")
-  let tokenAccount = await (new SPLToken.Token(CONNECTION, null, SPLToken.TOKEN_PROGRAM_ID, null)).getAccountInfo(tokenAccountPubkey);
+// get token account info
+
+(async () => {
+  let tokenAccount = await getAccount(connection, tokenAccount1Pubkey);
   console.log(tokenAccount);
-}
-
-main().then(
-  () => process.exit(),
-  (err) => {
-    console.error(err);
-    process.exit(-1);
-  }
-);
+})();

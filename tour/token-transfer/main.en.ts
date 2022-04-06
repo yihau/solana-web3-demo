@@ -1,32 +1,39 @@
-import { Transaction } from "@solana/web3.js";
+import { Keypair, Transaction, Connection, PublicKey } from "@solana/web3.js";
+import { createTransferCheckedInstruction } from "@solana/spl-token";
+import * as bs58 from "bs58";
 
-import { CONNECTION, FEE_PAYER, ALICE_TOKEN_ADDRESS_1, ALICE_TOKEN_ADDRESS_2, ALICE } from "../../helper/const";
+// connection
+const connection = new Connection("https://api.devnet.solana.com");
 
-import * as SPLToken from "@solana/spl-token";
+// 5YNmS1R9nNSCDzb5a7mMJ1dwK9uHeAAF4CmPEwKgVWr8
+const feePayer = Keypair.fromSecretKey(
+  bs58.decode("588FU4PktJWfGfxtzpAAXywSNt74AvtroVzGfKkVN1LwRuvHwKGr851uH8czM5qm4iqLbs1kKoMKtMJG4ATR7Ld2")
+);
 
-// token transfer
+// G2FAbFQPFa5qKXCetoFZQEvF9BVvCKbvUZvodpVidnoY
+const alice = Keypair.fromSecretKey(
+  bs58.decode("4NMwxzmYj2uvHuq8xoqhY8RXg63KSVJM1DXkpbmkUY7YQWuoyQgFnnzn6yo3CMnqZasnNPNuAT2TLwQsCaKkUddp")
+);
 
-async function main() {
+const mintPubkey = new PublicKey("AjMpnWhqrbFPJTQps4wEPNnGuQPMKUcfqHUqAeEf1WM4");
+
+const tokenAccount1Pubkey = new PublicKey("37sAdhEFiYxKnQAm7CPd5GLK1ZxWovqn3p87kKjfD44c");
+
+const tokenAccount2Pubkey = new PublicKey("CFEPU5Jd6DNj8gpjPLJ1d9i4xSJDGYNV7n6qw53zE3n1");
+
+// mint token
+
+(async () => {
   let tx = new Transaction();
   tx.add(
-    SPLToken.Token.createTransferInstruction(
-      SPLToken.TOKEN_PROGRAM_ID, // always token program address
-      ALICE_TOKEN_ADDRESS_1, // from (token account public key)
-      ALICE_TOKEN_ADDRESS_2, // to (token account public key)
-      ALICE.publicKey, // from's authority
-      [], // pass signer if from's mint is a multisig pubkey
-      10 // amount
+    createTransferCheckedInstruction(
+      tokenAccount1Pubkey, // from
+      mintPubkey, // mint
+      tokenAccount2Pubkey, // to
+      alice.publicKey, // from's owner
+      1, // amount
+      0 // decimals
     )
   );
-  tx.feePayer = FEE_PAYER.publicKey;
-
-  console.log(`txhash: ${await CONNECTION.sendTransaction(tx, [ALICE, FEE_PAYER])}`);
-}
-
-main().then(
-  () => process.exit(),
-  (err) => {
-    console.error(err);
-    process.exit(-1);
-  }
-);
+  console.log(`txhash: ${await connection.sendTransaction(tx, [feePayer, alice])}`);
+})();

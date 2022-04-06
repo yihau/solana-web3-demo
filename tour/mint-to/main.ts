@@ -1,32 +1,38 @@
-import { Transaction } from "@solana/web3.js";
+import { Keypair, Transaction, Connection, PublicKey } from "@solana/web3.js";
+import { createMintToCheckedInstruction } from "@solana/spl-token";
+import * as bs58 from "bs58";
 
-import { CONNECTION, FEE_PAYER, TEST_MINT, ALICE_TOKEN_ADDRESS_1 } from "../../helper/const";
+// connection
+const connection = new Connection("https://api.devnet.solana.com");
 
-import * as SPLToken from "@solana/spl-token";
+// 5YNmS1R9nNSCDzb5a7mMJ1dwK9uHeAAF4CmPEwKgVWr8
+const feePayer = Keypair.fromSecretKey(
+  bs58.decode("588FU4PktJWfGfxtzpAAXywSNt74AvtroVzGfKkVN1LwRuvHwKGr851uH8czM5qm4iqLbs1kKoMKtMJG4ATR7Ld2")
+);
 
-// 增發代幣
+// G2FAbFQPFa5qKXCetoFZQEvF9BVvCKbvUZvodpVidnoY
+const alice = Keypair.fromSecretKey(
+  bs58.decode("4NMwxzmYj2uvHuq8xoqhY8RXg63KSVJM1DXkpbmkUY7YQWuoyQgFnnzn6yo3CMnqZasnNPNuAT2TLwQsCaKkUddp")
+);
 
-async function main() {
+const mintPubkey = new PublicKey("AjMpnWhqrbFPJTQps4wEPNnGuQPMKUcfqHUqAeEf1WM4");
+
+const tokenAccount1Pubkey = new PublicKey("37sAdhEFiYxKnQAm7CPd5GLK1ZxWovqn3p87kKjfD44c");
+
+const tokenAccount2Pubkey = new PublicKey("CFEPU5Jd6DNj8gpjPLJ1d9i4xSJDGYNV7n6qw53zE3n1");
+
+// mint token
+
+(async () => {
   let tx = new Transaction();
   tx.add(
-    SPLToken.Token.createMintToInstruction(
-      SPLToken.TOKEN_PROGRAM_ID, // 通常是固定值, token program id
-      TEST_MINT, // mint
-      ALICE_TOKEN_ADDRESS_1, // 收token的地址 (需要是token account)
-      FEE_PAYER.publicKey, // mint 的 auth
-      [], // 如果auth是mutiple singer才需要，這邊我們先留空
-      1e9 // 要增發的數量 隨意帶 不過要記得這邊是最小單位 也就是說decimals如果是9 想要mint出1顆來就得帶1e9
+    createMintToCheckedInstruction(
+      mintPubkey,
+      tokenAccount1Pubkey,
+      alice.publicKey, // mint auth
+      1, // amount
+      0 // decimals
     )
   );
-  tx.feePayer = FEE_PAYER.publicKey;
-
-  console.log(`txhash: ${await CONNECTION.sendTransaction(tx, [FEE_PAYER])}`);
-}
-
-main().then(
-  () => process.exit(),
-  (err) => {
-    console.error(err);
-    process.exit(-1);
-  }
-);
+  console.log(`txhash: ${await connection.sendTransaction(tx, [feePayer, alice])}`);
+})();

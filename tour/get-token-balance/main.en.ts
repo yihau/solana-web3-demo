@@ -1,15 +1,13 @@
-import { CONNECTION, ALICE_TOKEN_ADDRESS_1 } from "../../helper/const";
+import { Connection, PublicKey } from "@solana/web3.js";
 
-// get token balance
+// connection
+const connection = new Connection("https://api.devnet.solana.com");
 
-async function main() {
-  console.log(await CONNECTION.getTokenAccountBalance(ALICE_TOKEN_ADDRESS_1))
-}
+const tokenAccount1Pubkey = new PublicKey("37sAdhEFiYxKnQAm7CPd5GLK1ZxWovqn3p87kKjfD44c");
 
-main().then(
-  () => process.exit(),
-  (err) => {
-    console.error(err);
-    process.exit(-1);
-  }
-);
+const tokenAccount2Pubkey = new PublicKey("CFEPU5Jd6DNj8gpjPLJ1d9i4xSJDGYNV7n6qw53zE3n1");
+
+(async () => {
+  let tokenAccountBalance = await connection.getTokenAccountBalance(tokenAccount1Pubkey);
+  console.log(`decimals: ${tokenAccountBalance.value.decimals}, amount: ${tokenAccountBalance.value.amount}`);
+})();

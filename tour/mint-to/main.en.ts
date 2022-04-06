@@ -1,32 +1,39 @@
-import { Transaction } from "@solana/web3.js";
+import { Keypair, Transaction, Connection, PublicKey } from "@solana/web3.js";
+import { createMintToCheckedInstruction } from "@solana/spl-token";
+import * as bs58 from "bs58";
 
-import { CONNECTION, FEE_PAYER, TEST_MINT, ALICE_TOKEN_ADDRESS_1 } from "../../helper/const";
+// connection
+const connection = new Connection("https://api.devnet.solana.com");
 
-import * as SPLToken from "@solana/spl-token";
+// 5YNmS1R9nNSCDzb5a7mMJ1dwK9uHeAAF4CmPEwKgVWr8
+const feePayer = Keypair.fromSecretKey(
+  bs58.decode("588FU4PktJWfGfxtzpAAXywSNt74AvtroVzGfKkVN1LwRuvHwKGr851uH8czM5qm4iqLbs1kKoMKtMJG4ATR7Ld2")
+);
+
+// G2FAbFQPFa5qKXCetoFZQEvF9BVvCKbvUZvodpVidnoY
+const alice = Keypair.fromSecretKey(
+  bs58.decode("4NMwxzmYj2uvHuq8xoqhY8RXg63KSVJM1DXkpbmkUY7YQWuoyQgFnnzn6yo3CMnqZasnNPNuAT2TLwQsCaKkUddp")
+);
+
+const mintPubkey = new PublicKey("AjMpnWhqrbFPJTQps4wEPNnGuQPMKUcfqHUqAeEf1WM4");
+
+const tokenAccount1Pubkey = new PublicKey("37sAdhEFiYxKnQAm7CPd5GLK1ZxWovqn3p87kKjfD44c");
+
+const tokenAccount2Pubkey = new PublicKey("CFEPU5Jd6DNj8gpjPLJ1d9i4xSJDGYNV7n6qw53zE3n1");
+
 
 // mint token
 
-async function main() {
+(async () => {
   let tx = new Transaction();
   tx.add(
-    SPLToken.Token.createMintToInstruction(
-      SPLToken.TOKEN_PROGRAM_ID, // always token program id
-      TEST_MINT, // mint
-      ALICE_TOKEN_ADDRESS_1, // receiver (also need a token account)
-      FEE_PAYER.publicKey, // mint's authority
-      [], // if mint's authority is a multisig account, then we pass singers into it, for now is empty
-      1e9 // mint amount, you can pass whatever you want, but it is the smallest unit, so if your decimals is 9, you will need to pass 1e9 to get 1 token
+    createMintToCheckedInstruction(
+      mintPubkey,
+      tokenAccount1Pubkey,
+      alice.publicKey, // mint auth
+      1, // amount
+      0 // decimals
     )
   );
-  tx.feePayer = FEE_PAYER.publicKey;
-
-  console.log(`txhash: ${await CONNECTION.sendTransaction(tx, [FEE_PAYER])}`);
-}
-
-main().then(
-  () => process.exit(),
-  (err) => {
-    console.error(err);
-    process.exit(-1);
-  }
-);
+  console.log(`txhash: ${await connection.sendTransaction(tx, [feePayer, alice])}`);
+})();

@@ -46,7 +46,7 @@ const alice = Keypair.fromSecretKey(
     createInitializeMintInstruction(
       mint.publicKey, // 幣的地址
       0, // 位數
-      feePayer.publicKey, // 增發幣的權限
+      alice.publicKey, // 增發幣的權限
       null // 冷凍帳戶的權限 (我們這邊先留null)
     )
   );

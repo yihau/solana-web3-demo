@@ -1,32 +1,39 @@
-import { Transaction } from "@solana/web3.js";
+import { Keypair, Transaction, Connection, PublicKey } from "@solana/web3.js";
+import { createTransferCheckedInstruction } from "@solana/spl-token";
+import * as bs58 from "bs58";
 
-import { CONNECTION, FEE_PAYER, ALICE_TOKEN_ADDRESS_1, ALICE_TOKEN_ADDRESS_2, ALICE } from "../../helper/const";
+// connection
+const connection = new Connection("https://api.devnet.solana.com");
 
-import * as SPLToken from "@solana/spl-token";
+// 5YNmS1R9nNSCDzb5a7mMJ1dwK9uHeAAF4CmPEwKgVWr8
+const feePayer = Keypair.fromSecretKey(
+  bs58.decode("588FU4PktJWfGfxtzpAAXywSNt74AvtroVzGfKkVN1LwRuvHwKGr851uH8czM5qm4iqLbs1kKoMKtMJG4ATR7Ld2")
+);
 
-// Token轉帳
+// G2FAbFQPFa5qKXCetoFZQEvF9BVvCKbvUZvodpVidnoY
+const alice = Keypair.fromSecretKey(
+  bs58.decode("4NMwxzmYj2uvHuq8xoqhY8RXg63KSVJM1DXkpbmkUY7YQWuoyQgFnnzn6yo3CMnqZasnNPNuAT2TLwQsCaKkUddp")
+);
 
-async function main() {
+const mintPubkey = new PublicKey("AjMpnWhqrbFPJTQps4wEPNnGuQPMKUcfqHUqAeEf1WM4");
+
+const tokenAccount1Pubkey = new PublicKey("37sAdhEFiYxKnQAm7CPd5GLK1ZxWovqn3p87kKjfD44c");
+
+const tokenAccount2Pubkey = new PublicKey("CFEPU5Jd6DNj8gpjPLJ1d9i4xSJDGYNV7n6qw53zE3n1");
+
+// mint token
+
+(async () => {
   let tx = new Transaction();
   tx.add(
-    SPLToken.Token.createTransferInstruction(
-      SPLToken.TOKEN_PROGRAM_ID, // 通常是固定數值, token program address
-      ALICE_TOKEN_ADDRESS_1, // from (token account public key)
-      ALICE_TOKEN_ADDRESS_2, // to (token account public key)
-      ALICE.publicKey, // from的auth
-      [], // from是mutiple signers才需要帶，這邊我們留空
-      10 // 轉帳的數量，這邊是最小單位，要注意decimals與實際數值的換算
+    createTransferCheckedInstruction(
+      tokenAccount1Pubkey, // from
+      mintPubkey, // mint
+      tokenAccount2Pubkey, // to
+      alice.publicKey, // from's owner
+      1, // amount
+      0 // decimals
     )
   );
-  tx.feePayer = FEE_PAYER.publicKey;
-
-  console.log(`txhash: ${await CONNECTION.sendTransaction(tx, [ALICE, FEE_PAYER])}`);
-}
-
-main().then(
-  () => process.exit(),
-  (err) => {
-    console.error(err);
-    process.exit(-1);
-  }
-);
+  console.log(`txhash: ${await connection.sendTransaction(tx, [feePayer, alice])}`);
+})();
