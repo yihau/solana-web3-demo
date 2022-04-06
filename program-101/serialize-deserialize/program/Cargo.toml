@@ -1,0 +1,12 @@
+[package]
+authors = ["yihau <yihau.chen@icloud.com >"]
+edition = "2018"
+name = "serialize-deserialize"
+version = "0.1.0"
+
+[dependencies]
+borsh = "0.9.0"
+solana-program = "=1.9.14"
+
+[lib]
+crate-type = ["cdylib", "lib"]
