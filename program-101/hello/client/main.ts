@@ -15,7 +15,7 @@ const alice = Keypair.fromSecretKey(
 );
 
 (async () => {
-  let programId = new PublicKey("CMjSZdnTtaUzrECSSnjzsUmjMGwS3RHXo82CpWEbx9D7");
+  let programId = new PublicKey("H9oXrmgoSdMRgeM9M4jM4RfuPUznHDjgZdBTgAmnDtRU");
 
   // instruction is composed by
   // - program id
