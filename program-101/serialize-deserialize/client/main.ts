@@ -58,8 +58,8 @@ const GREETING_SIZE = borsh.serialize(GreetingSchema, new GreetingAccount()).len
       })
     );
 
-  //   console.log(`txhash: ${await connection.sendTransaction(tx, [feePayer, greetAccount])}`);
-  // }
+    console.log(`txhash: ${await connection.sendTransaction(tx, [feePayer, greetAccount])}`);
+  }
 
   // 2. hello to exist account
   // {
