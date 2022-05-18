@@ -1,10 +1,9 @@
 name: docs
 
 on:
-  # trigger deployment on every push to main branch
   push:
-    branches: [main]
-  # trigger deployment manually
+    branches:
+      - main
   workflow_dispatch:
 
 jobs:
@@ -12,38 +11,16 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
-        with:
-          # fetch all commits to get last updated time or other git log info
-          fetch-depth: 0
+      - uses: actions/checkout@v3
 
       - name: Setup Node.js
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v3
         with:
-          # choose node.js version to use
-          node-version: "14"
+          node-version: "16"
 
-      # # cache node_modules
-      # - name: Cache dependencies
-      #   uses: actions/cache@v2
-      #   id: yarn-cache
-      #   with:
-      #     path: |
-      #       **/node_modules
-      #     key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-      #     restore-keys: |
-      #       ${{ runner.os }}-yarn-
-
-      # # install dependencies if the cache did not hit
-      # - name: Install dependencies
-      #   if: steps.yarn-cache.outputs.cache-hit != 'true'
-      #   run: yarn --frozen-lockfile
-
-      # run build script
       - name: install dependencies
         run: yarn
 
-      # run build script
       - name: Build VuePress site
         run: yarn docs:build
 
