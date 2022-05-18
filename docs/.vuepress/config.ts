@@ -55,7 +55,7 @@ export default defineUserConfig<DefaultThemeOptions>({
                 children: [
                   { text: "Get Token Metadata", link: "/advanced/metaplex/get-tokenmeta" },
                   { text: "Get NFT", link: "/advanced/metaplex/get-nft" },
-                  // { text: "Mint NFT", link: "/advanced/metaplex/mint-nft" },
+                  { text: "Mint NFT", link: "/advanced/metaplex/mint-nft" },
                 ],
               },
               {
@@ -117,7 +117,7 @@ export default defineUserConfig<DefaultThemeOptions>({
                 children: [
                   { text: "Token Metadata", link: "/zh/advanced/metaplex/get-tokenmeta" },
                   { text: "Get NFT", link: "/advanced/metaplex/get-nft" },
-                  // { text: "Mint NFT", link: "/advanced/metaplex/mint-nft" },
+                  { text: "Mint NFT", link: "/advanced/metaplex/mint-nft" },
                 ],
               },
               {
