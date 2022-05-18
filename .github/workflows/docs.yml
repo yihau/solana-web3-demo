@@ -19,10 +19,10 @@ jobs:
           node-version: "16"
 
       - name: install dependencies
-        run: yarn
+        run: npm install
 
       - name: Build VuePress site
-        run: yarn docs:build
+        run: npm run docs:build
 
       # please check out the docs of the workflow for more details
       # @see https://github.com/crazy-max/ghaction-github-pages
