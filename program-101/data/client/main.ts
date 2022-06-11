@@ -17,7 +17,7 @@ const alice = Keypair.fromSecretKey(
 (async () => {
   let programId = new PublicKey("Pp1xH7WfZEgfsjseWLLs4H8c4YT1xmdGWmenGBu62iE");
 
-  // data is the most powerful part in an instruciton
+  // data is the most powerful part in an instruction
   // we can pack everything into data, like number, pubkey ... whatever you want.
 
   // when we pack something into data, it should be a byte array
@@ -26,7 +26,7 @@ const alice = Keypair.fromSecretKey(
 
   // here I use data to make a function selector, we will make a more complex example later.
 
-  // our program will take the frist byte as a function selector
+  // our program will take the first byte as a function selector
   // then print remains
 
   {
