@@ -22,7 +22,7 @@ const alice = Keypair.fromSecretKey(
   // - account meta list
   // - data
 
-  // in our first program, we don't parse any accounts and data. leave them emtpy here
+  // in our first program, we don't parse any accounts and data. leave them empty here
   // we will make some changes later
   let ins = new TransactionInstruction({
     programId: programId,
