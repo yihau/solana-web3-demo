@@ -10,7 +10,7 @@
     "@metaplex-foundation/mpl-token-metadata": "^2.1.2",
     "@metaplex/js": "^4.10.1",
     "@solana/spl-token": "^0.2.0",
-    "@solana/web3.js": "^1.61.0",
+    "@solana/web3.js": "^1.63.0",
     "@vuepress/plugin-google-analytics": "^2.0.0-beta.27",
     "bip39": "^3.0.4",
     "bn.js": "^5.2.0",
