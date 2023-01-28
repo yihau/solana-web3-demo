@@ -7,9 +7,9 @@ import { Metadata } from "@metaplex-foundation/mpl-token-metadata";
 // here I take a random DAPE as an example
 // https://explorer.solana.com/address/9MwGzSyuQRqmBHqmYwE6wbP3vzRBj4WWiYxWns3rkR7A
 //
-// tokenmeta is a PDA a which derived by mint address
+// tokenmeta is a PDA which is derived by mint address
 // the formula is ['metadata', metadata_program_id, mint_id]
-// is it totally fine to forget it because sdk already wrapped it for us
+// it is totally fine to forget it because sdk already wrapped it for us
 
 const connection = new Connection("https://api.mainnet-beta.solana.com");
 
